@@ -41,7 +41,6 @@ Os aviões inimigos possuem um sistema de IA sofisticado que inclui:
 
 1. Clone o repositório:
 
-bash
 `git clone https://github.com/Talleshts/airplane-war.git`
 
 2. Instale as dependências:
@@ -50,7 +49,6 @@ bash
 
 3. Execute o jogo:
 
-bash
 `python main.py`
 
 
