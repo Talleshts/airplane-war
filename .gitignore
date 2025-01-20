@@ -1,0 +1,18 @@
+#ignorar pastas __pychache__
+__pycache__/
+
+#ignorar arquivos .pyc
+*.pyc
+
+#ignorar arquivos .pyo
+*.pyo
+
+#ignorar arquivos .pyd
+*.pyd
+
+#ignorar arquivos .pyw
+*.pyw
+
+#ignorar arquivos .pyz
+*.pyz
+
