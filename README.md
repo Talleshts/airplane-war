@@ -18,7 +18,7 @@ Um jogo de combate aéreo singleplayer desenvolvido em Python usando Pygame, ond
   - ⬇️ Desacelera
   - ⬅️ Gira para esquerda
   - ➡️ Gira para direita
-  - **SHIFT**: Insere/Retira jogador 
+- **SHIFT**: Insere/Retira jogador 
 - **Espaço**: Atira
 
 ## 🤖 Sistema de IA
