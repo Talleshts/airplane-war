@@ -1,6 +1,6 @@
 # Guerra de Aviões (Airplane War)
 
-Um jogo de combate aéreo multiplayer desenvolvido em Python usando Pygame, onde você controla um avião em batalhas contra IAs inimigas. Jogo feito em Python tendo como base os materiais iniciais das aulas de IA
+Um jogo de combate aéreo singleplayer desenvolvido em Python usando Pygame, onde você controla um avião em batalhas contra IAs inimigas. Jogo feito em Python tendo como base os materiais iniciais das aulas de IA
 
 ## 🎮 Características
 
@@ -18,6 +18,7 @@ Um jogo de combate aéreo multiplayer desenvolvido em Python usando Pygame, onde
   - ⬇️ Desacelera
   - ⬅️ Gira para esquerda
   - ➡️ Gira para direita
+  - **SHIFT**: Insere/Retira jogador 
 - **Espaço**: Atira
 
 ## 🤖 Sistema de IA
