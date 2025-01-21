@@ -3,6 +3,7 @@
 Um jogo de combate aéreo singleplayer desenvolvido em Python usando Pygame, onde você controla um avião em batalhas contra IAs inimigas. Jogo feito em Python tendo como base os materiais iniciais das aulas de IA
 
 ![image](https://github.com/user-attachments/assets/9afbf25a-e728-4505-87e6-ead7a700ce1f)
+
 (Imagem de uma cena do jogo)
 
 ## 🎮 Características
