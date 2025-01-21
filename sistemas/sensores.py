@@ -92,46 +92,46 @@ class SistemasSensores:
     #             pygame.draw.circle(tela, cor, (int(fim_x), int(fim_y)), 4)
 
     #Sensores mais dinamicos
-    def desenhar_sensores(self, tela):
-        if not self.esta_vivo():
-            return
+    # def desenhar_sensores(self, tela):
+    #     if not self.esta_vivo():
+    #         return
             
-        comprimento_base = 250
+    #     comprimento_base = 250
         
-        # Desenha os 10 sensores (36 graus entre cada)
-        for i in range(10):
-            angulo_sensor = self.angulo + (i * 36)  # 360/10 = 36 graus
+    #     # Desenha os 10 sensores (36 graus entre cada)
+    #     for i in range(10):
+    #         angulo_sensor = self.angulo + (i * 36)  # 360/10 = 36 graus
             
-            # Desenha sensores de parede
-            if self.sensores_parede[i] > 0:
-                comprimento = comprimento_base * (1 - self.sensores_parede[i])
-                fim_x = self.x + math.cos(math.radians(angulo_sensor)) * comprimento
-                fim_y = self.y - math.sin(math.radians(angulo_sensor)) * comprimento
+    #         # Desenha sensores de parede
+    #         if self.sensores_parede[i] > 0:
+    #             comprimento = comprimento_base * (1 - self.sensores_parede[i])
+    #             fim_x = self.x + math.cos(math.radians(angulo_sensor)) * comprimento
+    #             fim_y = self.y - math.sin(math.radians(angulo_sensor)) * comprimento
                 
-                # Cor dinâmica baseada na distância
-                intensidade = int(255 * (1 - self.sensores_parede[i]))
-                cor = (intensidade, 0, 0, max(50, intensidade))  # Vermelho com alpha
+    #             # Cor dinâmica baseada na distância
+    #             intensidade = int(255 * (1 - self.sensores_parede[i]))
+    #             cor = (intensidade, 0, 0, max(50, intensidade))  # Vermelho com alpha
                 
-                pygame.draw.line(tela, cor, (self.x, self.y), (fim_x, fim_y), 2)
-                if self.pontos_colisao[i]:
-                    pygame.draw.circle(tela, cor, (int(fim_x), int(fim_y)), 4)
+    #             pygame.draw.line(tela, cor, (self.x, self.y), (fim_x, fim_y), 2)
+    #             if self.pontos_colisao[i]:
+    #                 pygame.draw.circle(tela, cor, (int(fim_x), int(fim_y)), 4)
             
-            # Desenha sensores de avião
-            if self.sensores_aviao[i] > 0:
-                comprimento = comprimento_base * (1 - self.sensores_aviao[i])
-                fim_x = self.x + math.cos(math.radians(angulo_sensor)) * comprimento
-                fim_y = self.y - math.sin(math.radians(angulo_sensor)) * comprimento
+    #         # Desenha sensores de avião
+    #         if self.sensores_aviao[i] > 0:
+    #             comprimento = comprimento_base * (1 - self.sensores_aviao[i])
+    #             fim_x = self.x + math.cos(math.radians(angulo_sensor)) * comprimento
+    #             fim_y = self.y - math.sin(math.radians(angulo_sensor)) * comprimento
                 
-                # Cor dinâmica baseada na distância e posição
-                if i in [0, 1, 9]:  # Sensores frontais (ajustado para 10 sensores)
-                    intensidade = int(255 * (1 - self.sensores_aviao[i]))
-                    cor = (0, intensidade, 0, max(50, intensidade))  # Verde com alpha
-                else:
-                    cor = (0, 0, 255, 128)  # Azul com alpha
+    #             # Cor dinâmica baseada na distância e posição
+    #             if i in [0, 1, 9]:  # Sensores frontais (ajustado para 10 sensores)
+    #                 intensidade = int(255 * (1 - self.sensores_aviao[i]))
+    #                 cor = (0, intensidade, 0, max(50, intensidade))  # Verde com alpha
+    #             else:
+    #                 cor = (0, 0, 255, 128)  # Azul com alpha
                 
-                pygame.draw.line(tela, cor, (self.x, self.y), (fim_x, fim_y), 2)
-                if self.alvos_detectados[i]:
-                    pygame.draw.circle(tela, cor, (int(fim_x), int(fim_y)), 4)
+    #             pygame.draw.line(tela, cor, (self.x, self.y), (fim_x, fim_y), 2)
+    #             if self.alvos_detectados[i]:
+    #                 pygame.draw.circle(tela, cor, (int(fim_x), int(fim_y)), 4)
 
     @staticmethod
     def atualizar_sensores(aviao, avioes_proximos):

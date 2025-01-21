@@ -3,9 +3,10 @@ import math
 from config.configuracoes import LARGURA, ALTURA, VERMELHO, VERDE
 from entidades.tiro import Tiro
 from sistemas.sensores import SistemasSensores
+from config.genetico import AlgoritmoGenetico
 
 class Aviao:
-    def __init__(self, x, y, cor, nome):
+    def __init__(self, x, y, cor, nome, genes=None):
         self.x = x
         self.y = y
         self.angulo = 0
@@ -24,6 +25,27 @@ class Aviao:
         self.pontos_colisao = [None] * 10
         self.alvos_detectados = [None] * 10
         self.nome = nome
+        self.genes = genes if genes else AlgoritmoGenetico().criar_genes_aleatorios()
+        self.pontuacao = 0
+        self.dano_causado = 0
+        self.tempo_vida = 0
+        self.morreu_na_borda = False
+        self.avioes_abatidos = 0
+        self.bonus_sobrevivente = 0
+        
+    def atualizar_pontuacao(self):
+        self.tempo_vida += 1
+        
+        # Nova fórmula de pontuação focando em dano e abates
+        self.pontuacao = (
+            (self.dano_causado * 2) +          # Dano causado tem peso 2
+            (self.avioes_abatidos * 100) +     # Cada abate vale 100 pontos
+            (self.tempo_vida * 0.1)            # Tempo de vida tem peso menor
+        )
+        
+        # Penalidade por morrer na borda
+        if self.morreu_na_borda:
+            self.pontuacao -= 200 
         
     def atirar(self):
         tempo_atual = pygame.time.get_ticks()
@@ -35,6 +57,8 @@ class Aviao:
         self.vida -= dano
         if self.vida < 0:
             self.vida = 0
+            if self.colidindo:
+                self.morreu_na_borda = True
             
     def esta_vivo(self):
         return self.vida > 0
@@ -74,13 +98,24 @@ class Aviao:
         if not self.esta_vivo():
             return
                 
-        # Atualiza cor quando colidindo
+        # Atualiza cor quando colidindo ou muito perto da borda
+        margem_perigo = 30  # Margem menor para considerar perigo
+        em_perigo = (
+            self.x < margem_perigo or 
+            self.x > LARGURA - margem_perigo or 
+            self.y < margem_perigo or 
+            self.y > ALTURA - margem_perigo
+        )
+        
         if self.colidindo:
             self.cor_atual = (0, 0, 0)  # Preto quando colide
-            self.receber_dano(0.5)  # Aumentado o dano por colisão
+            self.receber_dano(0.5)  # Dano por colisão
+        elif em_perigo:
+            self.cor_atual = (100, 0, 0)  # Vermelho escuro quando em perigo
+            self.receber_dano(0.1)  # Dano leve por proximidade
         else:
             self.cor_atual = self.cor
-                
+        
         # Aplica movimento com redução quando próximo às bordas
         margem = 50
         fator_reducao = 1.0
@@ -89,11 +124,12 @@ class Aviao:
             fator_reducao *= 0.7
         if self.y < margem or self.y > ALTURA - margem:
             fator_reducao *= 0.7
-            
+                
+        # Aplica movimento
         self.x += math.cos(math.radians(self.angulo)) * self.velocidade * fator_reducao
         self.y -= math.sin(math.radians(self.angulo)) * self.velocidade * fator_reducao
-            
-        # Verifica colisão com bordas e aplica dano
+                
+        # Verifica colisão com bordas
         colidindo_antes = self.colidindo
         self.colidindo = False
         
@@ -120,7 +156,7 @@ class Aviao:
             return
             
         # Desenha sensores primeiro (para ficarem atrás do avião)
-        SistemasSensores.desenhar_sensores(self, tela)
+        # SistemasSensores.desenhar_sensores(self, tela)
             
         # Desenha tiros
         for tiro in self.tiros:
